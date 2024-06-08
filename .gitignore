@@ -1,0 +1,14 @@
+﻿################################################################################
+# Ce fichier .gitignore a été automatiquement créé par Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/ProjectEvaluation/webapi.metadata.v7.bin
+*.vsidx
+/.vs/ProjectEvaluation/webapi.metadata.v7.bin
+/.vs/ProjectEvaluation/webapi.projects.v7.bin
+/.vs/WebApi/DesignTimeBuild/.dtbcache.v2
+/.vs/WebApi/FileContentIndex/233a8576-7831-43d9-b325-c4711afcfa8f.vsidx
+/.vs/WebApi/FileContentIndex/ccc26ba1-07c7-4f27-89ae-e53c60e15d76.vsidx
+/.vs/WebApi/v17/.futdcache.v2
+/.vs/WebApi/v17/.suo
+/.vs/WebApi/DesignTimeBuild/.dtbcache.v2

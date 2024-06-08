@@ -1,0 +1,6 @@
+insert into Common.Status (StatusGroupName,StatusName,Description)
+values ('Profession','Request','Request')
+insert into Common.Status (StatusGroupName,StatusName,Description)
+values ('Profession','Validate','Validate')
+insert into Common.Status (StatusGroupName,StatusName,Description)
+values ('Profession','Refused','Refused')
