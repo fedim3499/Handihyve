@@ -26,7 +26,7 @@ class ClientWorkRequestPage extends StatefulWidget {
 class _ClientWorkRequestPageState extends State<ClientWorkRequestPage> {
   String? imageData; // Variable to store base64-encoded image data
   String? fileName; // Variable to store base64-encoded image data
-  String? UrlApi = "http://192.168.1.12:4000/api/workrequests";
+  String? UrlApi = "http://192.168.1.17:4000/api/workrequests";
   String? date; // Variable to store base64-encoded image data
   XFile? aa; // Variable to store base64-encoded image data
 
@@ -135,7 +135,7 @@ class _ClientWorkRequestPageState extends State<ClientWorkRequestPage> {
     try {
       var request = http.MultipartRequest(
         'POST',
-        Uri.parse('http://192.168.1.12:4000/api/UploadImages/upload'),
+        Uri.parse('http://192.168.1.17:4000/api/UploadImages/upload'),
       );
 
       // Check if the platform is web or mobile

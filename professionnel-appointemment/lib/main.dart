@@ -10,8 +10,15 @@ import 'package:professionnel/screens/signin_screen.dart';
 import 'package:professionnel/screens/signup_screen.dart';
 import 'package:professionnel/screens/welcome_screen.dart';
 import 'package:professionnel/screens/Oppointment.dart';
+import "package:professionnel/firebase_options.dart";
+//import 'package:flutter/widgets.dart';
+//import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+
+void main()  {
+  //WidgetsFlutterBinding.ensureInitialized();
+    //await Firebase.initializeApp(options: DefaultFireBaseOptions.currentPlatform);
+
   runApp(const MyApp());
 }
 

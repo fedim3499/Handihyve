@@ -46,7 +46,7 @@ class _SeeAllState extends State<SeeAll> {
 
   Future<dynamic> _professionList(int? professionTypeId,professionName) async {
     final url = Uri.parse(
-        'http://192.168.1.12:4000/Profession/GetProfessionByTypeId/' +
+        'http://192.168.1.17:4000/Profession/GetProfessionByTypeId/' +
             professionTypeId.toString());
     final headers = {'Content-Type': 'application/json'};
     final body = jsonEncode({'professionTypeId': professionTypeId},);

@@ -22,7 +22,7 @@ class _RatingReviewScreenState extends State<RatingReviewScreen> {
     await initLocalStorage();
     String? userIdString = localStorage?.getItem('userId');
     int? userId = userIdString != null ? int.parse(userIdString) : null;
-    var url = Uri.parse('http://192.168.1.12:4000/review/createReview');
+    var url = Uri.parse('http://192.168.1.17:4000/review/createReview');
     var response = await http.post(
       url,
       headers: {'Content-Type': 'application/json'},

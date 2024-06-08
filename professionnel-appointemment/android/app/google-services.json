@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "655373946863",
+    "project_id": "handihive-f78ae",
+    "storage_bucket": "handihive-f78ae.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:655373946863:android:a707a4326dca864c1e301a",
+        "android_client_info": {
+          "package_name": "com.example.hospital"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDeHk6cuKIbLVgzcebmDySUX1ga-zaPTyE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

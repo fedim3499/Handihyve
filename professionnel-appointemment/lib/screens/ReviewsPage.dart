@@ -24,7 +24,7 @@ class _ReviewsPageState extends State<ReviewsPage> {
 
   Future<dynamic> _getReviews(int? professionId) async {
     final url = Uri.parse(
-        'http://192.168.1.12:4000/Review/GetReviewByprofessionId/' +
+        'http://192.168.1.17:4000/Review/GetReviewByprofessionId/' +
             professionId.toString());
     final headers = {'Content-Type': 'application/json'};
     final body = jsonEncode({'professionId': professionId});

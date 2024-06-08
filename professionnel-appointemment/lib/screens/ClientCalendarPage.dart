@@ -90,7 +90,7 @@ Future<Professional?> fetchProfessional(int id) async {
   try {
     await initLocalStorage();
     String? userId = localStorage?.getItem('userId');
-    final url = 'http://192.168.1.12:4000/users/prof/$id';
+    final url = 'http://192.168.1.17:4000/users/prof/$id';
 
     final response = await http.get(Uri.parse(url));
 
@@ -126,7 +126,7 @@ Future<int?> fetchProfessionType(int id) async {
   try {
     await initLocalStorage();
     String? userId = localStorage?.getItem('userId');
-    final url = 'http://192.168.1.12:4000/profession/$id';
+    final url = 'http://192.168.1.17:4000/profession/$id';
 
     final response = await http.get(Uri.parse(url));
 
@@ -159,7 +159,7 @@ Future<String?> fetchProfessionName(int? id) async {
   try {
     await initLocalStorage();
     String? userId = localStorage?.getItem('userId');
-    final url = 'http://192.168.1.12:4000/profession/GetProfessionByTypeId/$id';
+    final url = 'http://192.168.1.17:4000/profession/GetProfessionByTypeId/$id';
 
     final response = await http.get(Uri.parse(url));
 
@@ -199,7 +199,7 @@ Future<List<Booking>> fetchBookings() async {
   try {
     await initLocalStorage();
     String? userId = localStorage?.getItem('userId');
-    final url = 'http://192.168.1.12:4000/api/workrequests/byClientId/$userId';
+    final url = 'http://192.168.1.17:4000/api/workrequests/byClientId/$userId';
 
     final response = await http.get(Uri.parse(url));
 

@@ -59,7 +59,7 @@ class _ClientDetailsPageState extends State<ClientDetailsPage> {
             SizedBox(height: 16),
             widget.booking.photo.isNotEmpty
                 ? Image.network(
-                    "http://192.168.1.12:4000/api/UploadImages/${widget.booking.photo}",
+                    "http://192.168.1.17:4000/api/UploadImages/${widget.booking.photo}",
                     height: 200,
                     width: double.infinity,
                     fit: BoxFit.cover,

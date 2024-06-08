@@ -53,7 +53,7 @@ class _HomeProfState extends State<HomeProf> {
   }
 
   Future<dynamic> _professionTypeList() async {
-    final url = Uri.parse('http://192.168.1.12:4000/ProfessionType');
+    final url = Uri.parse('http://192.168.1.17:4000/ProfessionType');
     final headers = {'Content-Type': 'application/json'};
     final response = await http.get(url, headers: headers);
     var data = jsonDecode(response.body);

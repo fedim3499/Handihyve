@@ -91,7 +91,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   Future<dynamic> getData() async {
-    final url = Uri.parse('http://192.168.1.12:4000/ProfessionType');
+    final url = Uri.parse('http://192.168.1.17:4000/ProfessionType');
     final headers = {'Content-Type': 'application/json'};
 
     final response = await http.get(url, headers: headers);
@@ -100,7 +100,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   Future<void> signUp() async {
-    final url = Uri.parse('http://192.168.1.12:4000/Users/createUser');
+    final url = Uri.parse('http://192.168.1.17:4000/Users/createUser');
     final headers = {'Content-Type': 'application/json'};
 
     final body = jsonEncode(constructFormData());

@@ -47,7 +47,7 @@ class _SignInScreenState extends State<SignInScreen> {
     String email = _emailController.text;
     String password = _passwordController.text;
 
-    var url = Uri.parse('http://192.168.1.12:4000/users/authenticate');
+    var url = Uri.parse('http://192.168.1.17:4000/users/authenticate');
     var response = await http.post(
       url,
       headers: {'Content-Type': 'application/json'},
@@ -85,7 +85,7 @@ class _SignInScreenState extends State<SignInScreen> {
   Future<int?> fetchProfessionalId(int id) async {
   try {
     await initLocalStorage();
-    final url = 'http://192.168.1.12:4000/users/$id';
+    final url = 'http://192.168.1.17:4000/users/$id';
 
     final response = await http.get(Uri.parse(url));
 

@@ -97,7 +97,7 @@ class _ProfHomeBoxState extends State<ProfHomeBox> {
   try {
     await initLocalStorage();
     String? userId = localStorage?.getItem('userId');
-    final url = 'http://192.168.1.12:4000/users/$id';
+    final url = 'http://192.168.1.17:4000/users/$id';
 
     final response = await http.get(Uri.parse(url));
 
@@ -133,7 +133,7 @@ class _ProfHomeBoxState extends State<ProfHomeBox> {
   try {
     await initLocalStorage();
     String? profId = localStorage?.getItem('profId');
-    final url = 'http://192.168.1.12:4000/api/workrequests/byProfId/$profId';
+    final url = 'http://192.168.1.17:4000/api/workrequests/byProfId/$profId';
 
     final response = await http.get(Uri.parse(url));
 
@@ -335,7 +335,7 @@ class RequestDetailsPage extends StatelessWidget {
   try {
     await initLocalStorage();
     String? userId = localStorage?.getItem('userId');
-    final url = 'http://192.168.1.12:4000/api/workrequests/status/$requestid/$status';
+    final url = 'http://192.168.1.17:4000/api/workrequests/status/$requestid/$status';
     print(url);
 
     final headers = <String, String>{
@@ -422,7 +422,7 @@ class RequestDetailsPage extends StatelessWidget {
             SizedBox(height: 16),
              
               request.imageUrl!=""?Image.network(
-               "http://192.168.1.12:4000/api/UploadImages/"+request.imageUrl,
+               "http://192.168.1.17:4000/api/UploadImages/"+request.imageUrl,
                 height: 200,
                 width: double.infinity,
                 fit: BoxFit.cover,
@@ -478,44 +478,139 @@ class RequestDetailsPage extends StatelessWidget {
     );
   }
 }
-
-class CalendarPage extends StatelessWidget {
+class CalendarPage extends StatefulWidget {
   final List<WorkRequest> acceptedRequests;
 
   const CalendarPage({Key? key, required this.acceptedRequests}) : super(key: key);
 
   @override
+  _CalendarPageState createState() => _CalendarPageState();
+}
+
+class _CalendarPageState extends State<CalendarPage> {
+  late Future<List<WorkRequest>> futureAcceptedRequests;
+    Future<String> fetchUser(int id) async {
+  try {
+    await initLocalStorage();
+    String? userId = localStorage?.getItem('userId');
+    final url = 'http://192.168.1.17:4000/users/$id';
+
+    final response = await http.get(Uri.parse(url));
+
+    print('Response: ${response.body}');
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic>? responseData = json.decode(response.body) as Map<String, dynamic>?;
+
+      if (responseData != null) {
+      
+          String userName =  responseData['firstName'] ?? 0;
+      
+
+        print("eeeeeeee"+userName);
+
+        return userName;
+      } else {
+        print('No valid profession Id data found.');
+        return ""; // Return null if the response data is null
+      }
+    } else {
+      throw Exception('Failed to load profession Id: ${response.statusCode}');
+    }
+  } catch (e) {
+    print('Error fetching profession Id: $e');
+    return ""; // Return null in case of an error
+  }
+}
+Future<List<WorkRequest>> fetchAcceptedWorkRequests() async {
+  try {
+    await initLocalStorage();
+    String? profId = localStorage?.getItem('profId');
+    final url = 'http://192.168.1.17:4000/api/workrequests/byProfIdAcc/$profId'; // Update URL as necessary
+
+    final response = await http.get(Uri.parse(url));
+
+    print('Response: ${response.body}');
+
+    if (response.statusCode == 200) {
+      final List<dynamic> responseData = json.decode(response.body);
+
+      List<WorkRequest> acceptedRequests = await Future.wait(responseData.map((json) async {
+        String firstName = await fetchUser(json['idclient']);
+
+        return WorkRequest(
+          id: json['id'],
+          firstName:firstName,
+          description: json['description'] ?? '',
+          date: json['date'] ?? '',
+          time: json['time'] ?? '',
+          imageUrl: json['photo'],
+          latuser: json['latitude'],
+          longuser: json['longitude']
+        );
+      }).toList());
+
+      return acceptedRequests;
+    } else {
+      throw Exception('Failed to load accepted requests: ${response.statusCode}');
+    }
+  } catch (e) {
+    print('Error fetching accepted requests: $e');
+    return [];
+  }
+}
+
+  @override
+  void initState() {
+    super.initState();
+    futureAcceptedRequests = fetchAcceptedWorkRequests();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Calendar'),
+        title: Text('Accepted Requests'),
       ),
-      body: ListView.builder(
-        itemCount: acceptedRequests.length,
-        itemBuilder: (context, index) {
-          final request = acceptedRequests[index];
-          return InkWell(
-            onTap: () {
-              // Navigate to the request details page
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => RequestDetailsPage(request: request),
+      body: FutureBuilder<List<WorkRequest>>(
+        future: futureAcceptedRequests,
+        builder: (context, snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return Center(child: CircularProgressIndicator());
+          } else if (snapshot.hasError) {
+            return Center(child: Text('Error: ${snapshot.error}'));
+          } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+            return Center(child: Text('No accepted requests found.'));
+          }
+
+          final acceptedRequests = snapshot.data!;
+
+          return ListView.builder(
+            itemCount: acceptedRequests.length,
+            itemBuilder: (context, index) {
+              final request = acceptedRequests[index];
+              return InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => RequestDetailsPage(request: request),
+                    ),
+                  );
+                },
+                child: Card(
+                  margin: EdgeInsets.all(8),
+                  child: ListTile(
+                    title: Text(request.firstName),
+                    subtitle: Text(request.description),
+                    trailing: Icon(Icons.arrow_forward_ios),
+                  ),
                 ),
               );
             },
-            child: Card(
-              margin: EdgeInsets.all(8),
-              child: ListTile(
-                title: Text(request.firstName),
-                subtitle: Text(request.description),
-                trailing: Icon(Icons.arrow_forward_ios),
-              ),
-            ),
           );
         },
       ),
     );
   }
 }
-
